@@ -101,7 +101,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_MXNetMain_OBJECTS = MXNetMain-MXNetMain.$(OBJEXT)
 MXNetMain_OBJECTS = $(am_MXNetMain_OBJECTS)
-MXNetMain_DEPENDENCIES = ../smartgame/libdeltago_smartgame.a
+MXNetMain_DEPENDENCIES = ../smartgame/libdeltago_smartgame.a \
+	../lib/libmxnet.so
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -176,7 +177,7 @@ CFLAGS = -g -O2
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
+CXXFLAGS =  -std=c++0x
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -256,6 +257,7 @@ AUTOMAKE_OPTIONS = foreign
 MXNetMain_SOURCES = MXNetMain.cpp
 MXNetMain_LDADD = \
 ../smartgame/libdeltago_smartgame.a \
+../lib/libmxnet.so \
 $(BOOST_PROGRAM_OPTIONS_LIB) \
 $(BOOST_SYSTEM_LIB) \
 $(BOOST_FILESYSTEM_LIB) \
@@ -263,7 +265,8 @@ $(BOOST_THREAD_LIB)
 
 MXNetMain_CPPFLAGS = \
 $(BOOST_CPPFLAGS) \
--I../smartgame
+-I../smartgame \
+-I../include
 
 all: all-am
 
