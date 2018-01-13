@@ -4,11 +4,14 @@ CXXFLAGS="$CXXFLAGS -std=c++0x"
 AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_RANLIB
+AM_PROG_AR
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
  Makefile
  mxnet/Makefile
  smartgame/Makefile
+ go/Makefile
+ gouct/Makefile
 ])
 AC_OUTPUT
 

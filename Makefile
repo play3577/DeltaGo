@@ -155,8 +155,8 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
-	depcomp install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in ar-lib \
+	compile depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -202,6 +202,7 @@ distcleancheck_listfiles = find . -type f -print
 ACLOCAL = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
+AR = ar
 AUTOCONF = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing autoconf
 AUTOHEADER = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing autoheader
 AUTOMAKE = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing automake-1.15
@@ -249,6 +250,7 @@ abs_builddir = /Users/mingxuan/Desktop/workspace/go_game/deltago
 abs_srcdir = /Users/mingxuan/Desktop/workspace/go_game/deltago
 abs_top_builddir = /Users/mingxuan/Desktop/workspace/go_game/deltago
 abs_top_srcdir = /Users/mingxuan/Desktop/workspace/go_game/deltago
+ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -290,6 +292,8 @@ top_builddir = .
 top_srcdir = .
 SUBDIRS = \
 smartgame \
+go \
+gouct \
 mxnet 
 
 all: config.h
