@@ -1,11 +1,14 @@
 noinst_LIBRARIES = libdeltago_gouct.a
 
 libdeltago_gouct_a_SOURCES = \
-GoUctBoard.cpp 
+GoUctBoard.cpp \
+GoUctUtil.cpp
 
 
 noinst_HEADERS = \
-GoUctBoard.h
+GoUctBoard.h \
+GoUctPureRandomGenerator.h \
+GoUctUtil.h
 
 
 libdeltago_gouct_a_CPPFLAGS = \

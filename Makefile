@@ -85,9 +85,18 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = x86_64-apple-darwin15.6.0
+host_triplet = x86_64-apple-darwin15.6.0
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_boost_base.m4 \
+	$(top_srcdir)/m4/ax_boost_date_time.m4 \
+	$(top_srcdir)/m4/ax_boost_filesystem.m4 \
+	$(top_srcdir)/m4/ax_boost_program_options.m4 \
+	$(top_srcdir)/m4/ax_boost_system.m4 \
+	$(top_srcdir)/m4/ax_boost_thread.m4 \
+	$(top_srcdir)/m4/ax_boost_unit_test_framework.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -155,8 +164,9 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in ar-lib \
-	compile depcomp install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in COPYING \
+	INSTALL ar-lib compile config.guess config.sub depcomp \
+	install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -207,6 +217,14 @@ AUTOCONF = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing au
 AUTOHEADER = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing autoheader
 AUTOMAKE = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing automake-1.15
 AWK = awk
+BOOST_CPPFLAGS = -pthread -I/usr/local/include
+BOOST_DATE_TIME_LIB = -lboost_date_time-mt
+BOOST_FILESYSTEM_LIB = -lboost_filesystem
+BOOST_LDFLAGS = -L/usr/local/lib
+BOOST_PROGRAM_OPTIONS_LIB = -lboost_program_options-mt
+BOOST_SYSTEM_LIB = -lboost_system
+BOOST_THREAD_LIB = -lboost_thread-mt
+BOOST_UNIT_TEST_FRAMEWORK_LIB = -lboost_unit_test_framework-mt
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
@@ -259,14 +277,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
+build = x86_64-apple-darwin15.6.0
 build_alias = 
+build_cpu = x86_64
+build_os = darwin15.6.0
+build_vendor = apple
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = x86_64-apple-darwin15.6.0
 host_alias = 
+host_cpu = x86_64
+host_os = darwin15.6.0
+host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -290,11 +316,15 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
+ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = \
 smartgame \
 go \
 gouct \
-mxnet 
+mxnet \
+simpleplayers \
+gtpengine \
+deltagomain
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

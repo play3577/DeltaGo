@@ -86,10 +86,19 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = MXNetExtract$(EXEEXT) MXNetMain$(EXEEXT)
+build_triplet = x86_64-apple-darwin15.6.0
+host_triplet = x86_64-apple-darwin15.6.0
+bin_PROGRAMS = MXNetExtract$(EXEEXT)
 subdir = mxnet
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_boost_base.m4 \
+	$(top_srcdir)/m4/ax_boost_date_time.m4 \
+	$(top_srcdir)/m4/ax_boost_filesystem.m4 \
+	$(top_srcdir)/m4/ax_boost_program_options.m4 \
+	$(top_srcdir)/m4/ax_boost_system.m4 \
+	$(top_srcdir)/m4/ax_boost_thread.m4 \
+	$(top_srcdir)/m4/ax_boost_unit_test_framework.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
@@ -101,14 +110,9 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_MXNetExtract_OBJECTS = MXNetExtract-feature_extract.$(OBJEXT)
 MXNetExtract_OBJECTS = $(am_MXNetExtract_OBJECTS)
-MXNetExtract_DEPENDENCIES = ../smartgame/libdeltago_smartgame.a \
-	../gouct/libdeltago_gouct.a ../go/libdeltago_go.a \
-	../lib/libmxnet.so
-am_MXNetMain_OBJECTS = MXNetMain-MXNetMain.$(OBJEXT)
-MXNetMain_OBJECTS = $(am_MXNetMain_OBJECTS)
-MXNetMain_DEPENDENCIES = ../smartgame/libdeltago_smartgame.a \
-	../gouct/libdeltago_gouct.a ../go/libdeltago_go.a \
-	../lib/libmxnet.so
+am__DEPENDENCIES_1 =
+MXNetExtract_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
+	$(MXNetExtract_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -142,8 +146,8 @@ AM_V_CXXLD = $(am__v_CXXLD_$(V))
 am__v_CXXLD_ = $(am__v_CXXLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(MXNetExtract_SOURCES) $(MXNetMain_SOURCES)
-DIST_SOURCES = $(MXNetExtract_SOURCES) $(MXNetMain_SOURCES)
+SOURCES = $(MXNetExtract_SOURCES)
+DIST_SOURCES = $(MXNetExtract_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -178,6 +182,14 @@ AUTOCONF = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing au
 AUTOHEADER = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing autoheader
 AUTOMAKE = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing automake-1.15
 AWK = awk
+BOOST_CPPFLAGS = -pthread -I/usr/local/include
+BOOST_DATE_TIME_LIB = -lboost_date_time-mt
+BOOST_FILESYSTEM_LIB = -lboost_filesystem
+BOOST_LDFLAGS = -L/usr/local/lib
+BOOST_PROGRAM_OPTIONS_LIB = -lboost_program_options-mt
+BOOST_SYSTEM_LIB = -lboost_system
+BOOST_THREAD_LIB = -lboost_thread-mt
+BOOST_UNIT_TEST_FRAMEWORK_LIB = -lboost_unit_test_framework-mt
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
@@ -230,14 +242,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
+build = x86_64-apple-darwin15.6.0
 build_alias = 
+build_cpu = x86_64
+build_os = darwin15.6.0
+build_vendor = apple
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = x86_64-apple-darwin15.6.0
 host_alias = 
+host_cpu = x86_64
+host_os = darwin15.6.0
+host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -263,6 +283,7 @@ top_builddir = ..
 top_srcdir = ..
 AUTOMAKE_OPTIONS = foreign  
 MXNetExtract_SOURCES = feature_extract.cpp
+MXNetExtract_LDFLAGS = $(BOOST_LDFLAGS)
 MXNetExtract_LDADD = \
 ../smartgame/libdeltago_smartgame.a \
 ../gouct/libdeltago_gouct.a \
@@ -271,31 +292,22 @@ MXNetExtract_LDADD = \
 $(BOOST_PROGRAM_OPTIONS_LIB) \
 $(BOOST_SYSTEM_LIB) \
 $(BOOST_FILESYSTEM_LIB) \
-$(BOOST_THREAD_LIB)
+$(BOOST_THREAD_LIB) \
+-lboost_system
+
+MXNetExtract_DEPENDENCIES = \
+../gouct/libdeltago_gouct.a \
+../go/libdeltago_go.a \
+../smartgame/libdeltago_smartgame.a 
 
 MXNetExtract_CPPFLAGS = \
 $(BOOST_CPPFLAGS) \
 -I../smartgame \
--I../include
+-I../include \
+-I../go \
+-I../gouct
 
-
-# bin_PROGRAMS = MXNetMain
-MXNetMain_SOURCES = MXNetMain.cpp
-MXNetMain_LDADD = \
-../smartgame/libdeltago_smartgame.a \
-../gouct/libdeltago_gouct.a \
-../go/libdeltago_go.a \
-../lib/libmxnet.so \
-$(BOOST_PROGRAM_OPTIONS_LIB) \
-$(BOOST_SYSTEM_LIB) \
-$(BOOST_FILESYSTEM_LIB) \
-$(BOOST_THREAD_LIB)
-
-MXNetMain_CPPFLAGS = \
-$(BOOST_CPPFLAGS) \
--I../smartgame \
--I../include
-
+DISTCLEANFILES = *~
 all: all-am
 
 .SUFFIXES:
@@ -374,11 +386,7 @@ clean-binPROGRAMS:
 
 MXNetExtract$(EXEEXT): $(MXNetExtract_OBJECTS) $(MXNetExtract_DEPENDENCIES) $(EXTRA_MXNetExtract_DEPENDENCIES) 
 	@rm -f MXNetExtract$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(MXNetExtract_OBJECTS) $(MXNetExtract_LDADD) $(LIBS)
-
-MXNetMain$(EXEEXT): $(MXNetMain_OBJECTS) $(MXNetMain_DEPENDENCIES) $(EXTRA_MXNetMain_DEPENDENCIES) 
-	@rm -f MXNetMain$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(MXNetMain_OBJECTS) $(MXNetMain_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(MXNetExtract_LINK) $(MXNetExtract_OBJECTS) $(MXNetExtract_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -387,7 +395,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/MXNetExtract-feature_extract.Po
-include ./$(DEPDIR)/MXNetMain-MXNetMain.Po
 
 .cpp.o:
 	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -416,20 +423,6 @@ MXNetExtract-feature_extract.obj: feature_extract.cpp
 #	$(AM_V_CXX)source='feature_extract.cpp' object='MXNetExtract-feature_extract.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(MXNetExtract_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o MXNetExtract-feature_extract.obj `if test -f 'feature_extract.cpp'; then $(CYGPATH_W) 'feature_extract.cpp'; else $(CYGPATH_W) '$(srcdir)/feature_extract.cpp'; fi`
-
-MXNetMain-MXNetMain.o: MXNetMain.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(MXNetMain_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT MXNetMain-MXNetMain.o -MD -MP -MF $(DEPDIR)/MXNetMain-MXNetMain.Tpo -c -o MXNetMain-MXNetMain.o `test -f 'MXNetMain.cpp' || echo '$(srcdir)/'`MXNetMain.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/MXNetMain-MXNetMain.Tpo $(DEPDIR)/MXNetMain-MXNetMain.Po
-#	$(AM_V_CXX)source='MXNetMain.cpp' object='MXNetMain-MXNetMain.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(MXNetMain_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o MXNetMain-MXNetMain.o `test -f 'MXNetMain.cpp' || echo '$(srcdir)/'`MXNetMain.cpp
-
-MXNetMain-MXNetMain.obj: MXNetMain.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(MXNetMain_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT MXNetMain-MXNetMain.obj -MD -MP -MF $(DEPDIR)/MXNetMain-MXNetMain.Tpo -c -o MXNetMain-MXNetMain.obj `if test -f 'MXNetMain.cpp'; then $(CYGPATH_W) 'MXNetMain.cpp'; else $(CYGPATH_W) '$(srcdir)/MXNetMain.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/MXNetMain-MXNetMain.Tpo $(DEPDIR)/MXNetMain-MXNetMain.Po
-#	$(AM_V_CXX)source='MXNetMain.cpp' object='MXNetMain-MXNetMain.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(MXNetMain_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o MXNetMain-MXNetMain.obj `if test -f 'MXNetMain.cpp'; then $(CYGPATH_W) 'MXNetMain.cpp'; else $(CYGPATH_W) '$(srcdir)/MXNetMain.cpp'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -546,6 +539,7 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"

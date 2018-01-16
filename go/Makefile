@@ -87,9 +87,18 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = x86_64-apple-darwin15.6.0
+host_triplet = x86_64-apple-darwin15.6.0
 subdir = go
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_boost_base.m4 \
+	$(top_srcdir)/m4/ax_boost_date_time.m4 \
+	$(top_srcdir)/m4/ax_boost_filesystem.m4 \
+	$(top_srcdir)/m4/ax_boost_program_options.m4 \
+	$(top_srcdir)/m4/ax_boost_system.m4 \
+	$(top_srcdir)/m4/ax_boost_thread.m4 \
+	$(top_srcdir)/m4/ax_boost_unit_test_framework.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(noinst_HEADERS) \
@@ -121,6 +130,25 @@ am_libdeltago_go_a_OBJECTS = libdeltago_go_a-GoPlayerMove.$(OBJEXT) \
 	libdeltago_go_a-GoSafetyUtil.$(OBJEXT) \
 	libdeltago_go_a-GoSafetySolver.$(OBJEXT) \
 	libdeltago_go_a-GoStaticSafetySolver.$(OBJEXT) \
+	libdeltago_go_a-GoGtpEngine.$(OBJEXT) \
+	libdeltago_go_a-GoBook.$(OBJEXT) \
+	libdeltago_go_a-GoAutoBook.$(OBJEXT) \
+	libdeltago_go_a-GoBoardSynchronizer.$(OBJEXT) \
+	libdeltago_go_a-GoGame.$(OBJEXT) \
+	libdeltago_go_a-GoBoardUpdater.$(OBJEXT) \
+	libdeltago_go_a-GoPlayer.$(OBJEXT) \
+	libdeltago_go_a-GoStaticLadder.$(OBJEXT) \
+	libdeltago_go_a-GoBoardRestorer.$(OBJEXT) \
+	libdeltago_go_a-GoGtpCommandUtil.$(OBJEXT) \
+	libdeltago_go_a-GoInfluence.$(OBJEXT) \
+	libdeltago_go_a-GoNodeUtil.$(OBJEXT) \
+	libdeltago_go_a-GoTimeControl.$(OBJEXT) \
+	libdeltago_go_a-GoUtil.$(OBJEXT) \
+	libdeltago_go_a-GoSetupUtil.$(OBJEXT) \
+	libdeltago_go_a-GoGtpExtraCommands.$(OBJEXT) \
+	libdeltago_go_a-GoLadder.$(OBJEXT) \
+	libdeltago_go_a-GoSafetyCommands.$(OBJEXT) \
+	libdeltago_go_a-GoBensonSolver.$(OBJEXT) \
 	libdeltago_go_a-GoBoard.$(OBJEXT)
 libdeltago_go_a_OBJECTS = $(am_libdeltago_go_a_OBJECTS)
 AM_V_P = $(am__v_P_$(V))
@@ -193,6 +221,14 @@ AUTOCONF = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing au
 AUTOHEADER = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing autoheader
 AUTOMAKE = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing automake-1.15
 AWK = awk
+BOOST_CPPFLAGS = -pthread -I/usr/local/include
+BOOST_DATE_TIME_LIB = -lboost_date_time-mt
+BOOST_FILESYSTEM_LIB = -lboost_filesystem
+BOOST_LDFLAGS = -L/usr/local/lib
+BOOST_PROGRAM_OPTIONS_LIB = -lboost_program_options-mt
+BOOST_SYSTEM_LIB = -lboost_system
+BOOST_THREAD_LIB = -lboost_thread-mt
+BOOST_UNIT_TEST_FRAMEWORK_LIB = -lboost_unit_test_framework-mt
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
@@ -245,14 +281,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
+build = x86_64-apple-darwin15.6.0
 build_alias = 
+build_cpu = x86_64
+build_os = darwin15.6.0
+build_vendor = apple
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = x86_64-apple-darwin15.6.0
 host_alias = 
+host_cpu = x86_64
+host_os = darwin15.6.0
+host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -293,6 +337,25 @@ GoRegionUtil.cpp \
 GoSafetyUtil.cpp \
 GoSafetySolver.cpp \
 GoStaticSafetySolver.cpp \
+GoGtpEngine.cpp \
+GoBook.cpp \
+GoAutoBook.cpp \
+GoBoardSynchronizer.cpp \
+GoGame.cpp \
+GoBoardUpdater.cpp \
+GoPlayer.cpp \
+GoStaticLadder.cpp \
+GoBoardRestorer.cpp \
+GoGtpCommandUtil.cpp \
+GoInfluence.cpp \
+GoNodeUtil.cpp \
+GoTimeControl.cpp \
+GoUtil.cpp \
+GoSetupUtil.cpp \
+GoGtpExtraCommands.cpp \
+GoLadder.cpp \
+GoSafetyCommands.cpp \
+GoBensonSolver.cpp \
 GoBoard.cpp 
 
 noinst_HEADERS = \
@@ -315,11 +378,31 @@ GoAssertBoardRestored.h \
 GoMoveExecutor.h \
 GoSafetySolver.h \
 GoStaticSafetySolver.h \
+GoGtpEngine.h \
+GoBook.h \
+GoAutoBook.h \
+GoBoardSynchronizer.h \
+GoGame.h \
+GoBoardUpdater.h \
+GoPlayer.h \
+GoStaticLadder.h \
+GoBoardRestorer.h \
+GoGtpCommandUtil.h \
+GoInfluence.h \
+GoNodeUtil.h \
+GoTimeControl.h \
+GoUtil.h \
+GoSetupUtil.h \
+GoGtpExtraCommands.h \
+GoLadder.h \
+GoSafetyCommands.h \
+GoBensonSolver.h \
 GoBoard.h 
 
 libdeltago_go_a_CPPFLAGS = \
 $(BOOST_CPPFLAGS) \
--I../smartgame
+-I../smartgame \
+-I../gtpengine
 
 DISTCLEANFILES = *~
 all: all-am
@@ -370,22 +453,41 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/libdeltago_go_a-GoAutoBook.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoBensonSolver.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoBlock.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoBoard.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoBoardRestorer.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoBoardSynchronizer.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoBoardUpdater.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoBoardUtil.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoBook.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoChain.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoEyeCount.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoEyeUtil.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoGame.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoGtpCommandUtil.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoGtpEngine.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoGtpExtraCommands.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoInfluence.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoInit.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoKomi.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoLadder.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoNodeUtil.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoPlayer.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoPlayerMove.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoRegion.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoRegionBoard.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoRegionUtil.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoRules.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoSafetyCommands.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoSafetySolver.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoSafetyUtil.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoSetupUtil.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoStaticLadder.Po
 include ./$(DEPDIR)/libdeltago_go_a-GoStaticSafetySolver.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoTimeControl.Po
+include ./$(DEPDIR)/libdeltago_go_a-GoUtil.Po
 
 .cpp.o:
 	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -610,6 +712,272 @@ libdeltago_go_a-GoStaticSafetySolver.obj: GoStaticSafetySolver.cpp
 #	$(AM_V_CXX)source='GoStaticSafetySolver.cpp' object='libdeltago_go_a-GoStaticSafetySolver.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoStaticSafetySolver.obj `if test -f 'GoStaticSafetySolver.cpp'; then $(CYGPATH_W) 'GoStaticSafetySolver.cpp'; else $(CYGPATH_W) '$(srcdir)/GoStaticSafetySolver.cpp'; fi`
+
+libdeltago_go_a-GoGtpEngine.o: GoGtpEngine.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoGtpEngine.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoGtpEngine.Tpo -c -o libdeltago_go_a-GoGtpEngine.o `test -f 'GoGtpEngine.cpp' || echo '$(srcdir)/'`GoGtpEngine.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoGtpEngine.Tpo $(DEPDIR)/libdeltago_go_a-GoGtpEngine.Po
+#	$(AM_V_CXX)source='GoGtpEngine.cpp' object='libdeltago_go_a-GoGtpEngine.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoGtpEngine.o `test -f 'GoGtpEngine.cpp' || echo '$(srcdir)/'`GoGtpEngine.cpp
+
+libdeltago_go_a-GoGtpEngine.obj: GoGtpEngine.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoGtpEngine.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoGtpEngine.Tpo -c -o libdeltago_go_a-GoGtpEngine.obj `if test -f 'GoGtpEngine.cpp'; then $(CYGPATH_W) 'GoGtpEngine.cpp'; else $(CYGPATH_W) '$(srcdir)/GoGtpEngine.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoGtpEngine.Tpo $(DEPDIR)/libdeltago_go_a-GoGtpEngine.Po
+#	$(AM_V_CXX)source='GoGtpEngine.cpp' object='libdeltago_go_a-GoGtpEngine.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoGtpEngine.obj `if test -f 'GoGtpEngine.cpp'; then $(CYGPATH_W) 'GoGtpEngine.cpp'; else $(CYGPATH_W) '$(srcdir)/GoGtpEngine.cpp'; fi`
+
+libdeltago_go_a-GoBook.o: GoBook.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBook.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBook.Tpo -c -o libdeltago_go_a-GoBook.o `test -f 'GoBook.cpp' || echo '$(srcdir)/'`GoBook.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBook.Tpo $(DEPDIR)/libdeltago_go_a-GoBook.Po
+#	$(AM_V_CXX)source='GoBook.cpp' object='libdeltago_go_a-GoBook.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBook.o `test -f 'GoBook.cpp' || echo '$(srcdir)/'`GoBook.cpp
+
+libdeltago_go_a-GoBook.obj: GoBook.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBook.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBook.Tpo -c -o libdeltago_go_a-GoBook.obj `if test -f 'GoBook.cpp'; then $(CYGPATH_W) 'GoBook.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBook.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBook.Tpo $(DEPDIR)/libdeltago_go_a-GoBook.Po
+#	$(AM_V_CXX)source='GoBook.cpp' object='libdeltago_go_a-GoBook.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBook.obj `if test -f 'GoBook.cpp'; then $(CYGPATH_W) 'GoBook.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBook.cpp'; fi`
+
+libdeltago_go_a-GoAutoBook.o: GoAutoBook.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoAutoBook.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoAutoBook.Tpo -c -o libdeltago_go_a-GoAutoBook.o `test -f 'GoAutoBook.cpp' || echo '$(srcdir)/'`GoAutoBook.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoAutoBook.Tpo $(DEPDIR)/libdeltago_go_a-GoAutoBook.Po
+#	$(AM_V_CXX)source='GoAutoBook.cpp' object='libdeltago_go_a-GoAutoBook.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoAutoBook.o `test -f 'GoAutoBook.cpp' || echo '$(srcdir)/'`GoAutoBook.cpp
+
+libdeltago_go_a-GoAutoBook.obj: GoAutoBook.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoAutoBook.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoAutoBook.Tpo -c -o libdeltago_go_a-GoAutoBook.obj `if test -f 'GoAutoBook.cpp'; then $(CYGPATH_W) 'GoAutoBook.cpp'; else $(CYGPATH_W) '$(srcdir)/GoAutoBook.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoAutoBook.Tpo $(DEPDIR)/libdeltago_go_a-GoAutoBook.Po
+#	$(AM_V_CXX)source='GoAutoBook.cpp' object='libdeltago_go_a-GoAutoBook.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoAutoBook.obj `if test -f 'GoAutoBook.cpp'; then $(CYGPATH_W) 'GoAutoBook.cpp'; else $(CYGPATH_W) '$(srcdir)/GoAutoBook.cpp'; fi`
+
+libdeltago_go_a-GoBoardSynchronizer.o: GoBoardSynchronizer.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBoardSynchronizer.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBoardSynchronizer.Tpo -c -o libdeltago_go_a-GoBoardSynchronizer.o `test -f 'GoBoardSynchronizer.cpp' || echo '$(srcdir)/'`GoBoardSynchronizer.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBoardSynchronizer.Tpo $(DEPDIR)/libdeltago_go_a-GoBoardSynchronizer.Po
+#	$(AM_V_CXX)source='GoBoardSynchronizer.cpp' object='libdeltago_go_a-GoBoardSynchronizer.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBoardSynchronizer.o `test -f 'GoBoardSynchronizer.cpp' || echo '$(srcdir)/'`GoBoardSynchronizer.cpp
+
+libdeltago_go_a-GoBoardSynchronizer.obj: GoBoardSynchronizer.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBoardSynchronizer.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBoardSynchronizer.Tpo -c -o libdeltago_go_a-GoBoardSynchronizer.obj `if test -f 'GoBoardSynchronizer.cpp'; then $(CYGPATH_W) 'GoBoardSynchronizer.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBoardSynchronizer.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBoardSynchronizer.Tpo $(DEPDIR)/libdeltago_go_a-GoBoardSynchronizer.Po
+#	$(AM_V_CXX)source='GoBoardSynchronizer.cpp' object='libdeltago_go_a-GoBoardSynchronizer.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBoardSynchronizer.obj `if test -f 'GoBoardSynchronizer.cpp'; then $(CYGPATH_W) 'GoBoardSynchronizer.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBoardSynchronizer.cpp'; fi`
+
+libdeltago_go_a-GoGame.o: GoGame.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoGame.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoGame.Tpo -c -o libdeltago_go_a-GoGame.o `test -f 'GoGame.cpp' || echo '$(srcdir)/'`GoGame.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoGame.Tpo $(DEPDIR)/libdeltago_go_a-GoGame.Po
+#	$(AM_V_CXX)source='GoGame.cpp' object='libdeltago_go_a-GoGame.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoGame.o `test -f 'GoGame.cpp' || echo '$(srcdir)/'`GoGame.cpp
+
+libdeltago_go_a-GoGame.obj: GoGame.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoGame.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoGame.Tpo -c -o libdeltago_go_a-GoGame.obj `if test -f 'GoGame.cpp'; then $(CYGPATH_W) 'GoGame.cpp'; else $(CYGPATH_W) '$(srcdir)/GoGame.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoGame.Tpo $(DEPDIR)/libdeltago_go_a-GoGame.Po
+#	$(AM_V_CXX)source='GoGame.cpp' object='libdeltago_go_a-GoGame.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoGame.obj `if test -f 'GoGame.cpp'; then $(CYGPATH_W) 'GoGame.cpp'; else $(CYGPATH_W) '$(srcdir)/GoGame.cpp'; fi`
+
+libdeltago_go_a-GoBoardUpdater.o: GoBoardUpdater.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBoardUpdater.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBoardUpdater.Tpo -c -o libdeltago_go_a-GoBoardUpdater.o `test -f 'GoBoardUpdater.cpp' || echo '$(srcdir)/'`GoBoardUpdater.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBoardUpdater.Tpo $(DEPDIR)/libdeltago_go_a-GoBoardUpdater.Po
+#	$(AM_V_CXX)source='GoBoardUpdater.cpp' object='libdeltago_go_a-GoBoardUpdater.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBoardUpdater.o `test -f 'GoBoardUpdater.cpp' || echo '$(srcdir)/'`GoBoardUpdater.cpp
+
+libdeltago_go_a-GoBoardUpdater.obj: GoBoardUpdater.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBoardUpdater.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBoardUpdater.Tpo -c -o libdeltago_go_a-GoBoardUpdater.obj `if test -f 'GoBoardUpdater.cpp'; then $(CYGPATH_W) 'GoBoardUpdater.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBoardUpdater.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBoardUpdater.Tpo $(DEPDIR)/libdeltago_go_a-GoBoardUpdater.Po
+#	$(AM_V_CXX)source='GoBoardUpdater.cpp' object='libdeltago_go_a-GoBoardUpdater.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBoardUpdater.obj `if test -f 'GoBoardUpdater.cpp'; then $(CYGPATH_W) 'GoBoardUpdater.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBoardUpdater.cpp'; fi`
+
+libdeltago_go_a-GoPlayer.o: GoPlayer.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoPlayer.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoPlayer.Tpo -c -o libdeltago_go_a-GoPlayer.o `test -f 'GoPlayer.cpp' || echo '$(srcdir)/'`GoPlayer.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoPlayer.Tpo $(DEPDIR)/libdeltago_go_a-GoPlayer.Po
+#	$(AM_V_CXX)source='GoPlayer.cpp' object='libdeltago_go_a-GoPlayer.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoPlayer.o `test -f 'GoPlayer.cpp' || echo '$(srcdir)/'`GoPlayer.cpp
+
+libdeltago_go_a-GoPlayer.obj: GoPlayer.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoPlayer.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoPlayer.Tpo -c -o libdeltago_go_a-GoPlayer.obj `if test -f 'GoPlayer.cpp'; then $(CYGPATH_W) 'GoPlayer.cpp'; else $(CYGPATH_W) '$(srcdir)/GoPlayer.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoPlayer.Tpo $(DEPDIR)/libdeltago_go_a-GoPlayer.Po
+#	$(AM_V_CXX)source='GoPlayer.cpp' object='libdeltago_go_a-GoPlayer.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoPlayer.obj `if test -f 'GoPlayer.cpp'; then $(CYGPATH_W) 'GoPlayer.cpp'; else $(CYGPATH_W) '$(srcdir)/GoPlayer.cpp'; fi`
+
+libdeltago_go_a-GoStaticLadder.o: GoStaticLadder.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoStaticLadder.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoStaticLadder.Tpo -c -o libdeltago_go_a-GoStaticLadder.o `test -f 'GoStaticLadder.cpp' || echo '$(srcdir)/'`GoStaticLadder.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoStaticLadder.Tpo $(DEPDIR)/libdeltago_go_a-GoStaticLadder.Po
+#	$(AM_V_CXX)source='GoStaticLadder.cpp' object='libdeltago_go_a-GoStaticLadder.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoStaticLadder.o `test -f 'GoStaticLadder.cpp' || echo '$(srcdir)/'`GoStaticLadder.cpp
+
+libdeltago_go_a-GoStaticLadder.obj: GoStaticLadder.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoStaticLadder.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoStaticLadder.Tpo -c -o libdeltago_go_a-GoStaticLadder.obj `if test -f 'GoStaticLadder.cpp'; then $(CYGPATH_W) 'GoStaticLadder.cpp'; else $(CYGPATH_W) '$(srcdir)/GoStaticLadder.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoStaticLadder.Tpo $(DEPDIR)/libdeltago_go_a-GoStaticLadder.Po
+#	$(AM_V_CXX)source='GoStaticLadder.cpp' object='libdeltago_go_a-GoStaticLadder.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoStaticLadder.obj `if test -f 'GoStaticLadder.cpp'; then $(CYGPATH_W) 'GoStaticLadder.cpp'; else $(CYGPATH_W) '$(srcdir)/GoStaticLadder.cpp'; fi`
+
+libdeltago_go_a-GoBoardRestorer.o: GoBoardRestorer.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBoardRestorer.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBoardRestorer.Tpo -c -o libdeltago_go_a-GoBoardRestorer.o `test -f 'GoBoardRestorer.cpp' || echo '$(srcdir)/'`GoBoardRestorer.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBoardRestorer.Tpo $(DEPDIR)/libdeltago_go_a-GoBoardRestorer.Po
+#	$(AM_V_CXX)source='GoBoardRestorer.cpp' object='libdeltago_go_a-GoBoardRestorer.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBoardRestorer.o `test -f 'GoBoardRestorer.cpp' || echo '$(srcdir)/'`GoBoardRestorer.cpp
+
+libdeltago_go_a-GoBoardRestorer.obj: GoBoardRestorer.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBoardRestorer.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBoardRestorer.Tpo -c -o libdeltago_go_a-GoBoardRestorer.obj `if test -f 'GoBoardRestorer.cpp'; then $(CYGPATH_W) 'GoBoardRestorer.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBoardRestorer.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBoardRestorer.Tpo $(DEPDIR)/libdeltago_go_a-GoBoardRestorer.Po
+#	$(AM_V_CXX)source='GoBoardRestorer.cpp' object='libdeltago_go_a-GoBoardRestorer.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBoardRestorer.obj `if test -f 'GoBoardRestorer.cpp'; then $(CYGPATH_W) 'GoBoardRestorer.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBoardRestorer.cpp'; fi`
+
+libdeltago_go_a-GoGtpCommandUtil.o: GoGtpCommandUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoGtpCommandUtil.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoGtpCommandUtil.Tpo -c -o libdeltago_go_a-GoGtpCommandUtil.o `test -f 'GoGtpCommandUtil.cpp' || echo '$(srcdir)/'`GoGtpCommandUtil.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoGtpCommandUtil.Tpo $(DEPDIR)/libdeltago_go_a-GoGtpCommandUtil.Po
+#	$(AM_V_CXX)source='GoGtpCommandUtil.cpp' object='libdeltago_go_a-GoGtpCommandUtil.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoGtpCommandUtil.o `test -f 'GoGtpCommandUtil.cpp' || echo '$(srcdir)/'`GoGtpCommandUtil.cpp
+
+libdeltago_go_a-GoGtpCommandUtil.obj: GoGtpCommandUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoGtpCommandUtil.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoGtpCommandUtil.Tpo -c -o libdeltago_go_a-GoGtpCommandUtil.obj `if test -f 'GoGtpCommandUtil.cpp'; then $(CYGPATH_W) 'GoGtpCommandUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/GoGtpCommandUtil.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoGtpCommandUtil.Tpo $(DEPDIR)/libdeltago_go_a-GoGtpCommandUtil.Po
+#	$(AM_V_CXX)source='GoGtpCommandUtil.cpp' object='libdeltago_go_a-GoGtpCommandUtil.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoGtpCommandUtil.obj `if test -f 'GoGtpCommandUtil.cpp'; then $(CYGPATH_W) 'GoGtpCommandUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/GoGtpCommandUtil.cpp'; fi`
+
+libdeltago_go_a-GoInfluence.o: GoInfluence.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoInfluence.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoInfluence.Tpo -c -o libdeltago_go_a-GoInfluence.o `test -f 'GoInfluence.cpp' || echo '$(srcdir)/'`GoInfluence.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoInfluence.Tpo $(DEPDIR)/libdeltago_go_a-GoInfluence.Po
+#	$(AM_V_CXX)source='GoInfluence.cpp' object='libdeltago_go_a-GoInfluence.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoInfluence.o `test -f 'GoInfluence.cpp' || echo '$(srcdir)/'`GoInfluence.cpp
+
+libdeltago_go_a-GoInfluence.obj: GoInfluence.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoInfluence.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoInfluence.Tpo -c -o libdeltago_go_a-GoInfluence.obj `if test -f 'GoInfluence.cpp'; then $(CYGPATH_W) 'GoInfluence.cpp'; else $(CYGPATH_W) '$(srcdir)/GoInfluence.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoInfluence.Tpo $(DEPDIR)/libdeltago_go_a-GoInfluence.Po
+#	$(AM_V_CXX)source='GoInfluence.cpp' object='libdeltago_go_a-GoInfluence.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoInfluence.obj `if test -f 'GoInfluence.cpp'; then $(CYGPATH_W) 'GoInfluence.cpp'; else $(CYGPATH_W) '$(srcdir)/GoInfluence.cpp'; fi`
+
+libdeltago_go_a-GoNodeUtil.o: GoNodeUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoNodeUtil.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoNodeUtil.Tpo -c -o libdeltago_go_a-GoNodeUtil.o `test -f 'GoNodeUtil.cpp' || echo '$(srcdir)/'`GoNodeUtil.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoNodeUtil.Tpo $(DEPDIR)/libdeltago_go_a-GoNodeUtil.Po
+#	$(AM_V_CXX)source='GoNodeUtil.cpp' object='libdeltago_go_a-GoNodeUtil.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoNodeUtil.o `test -f 'GoNodeUtil.cpp' || echo '$(srcdir)/'`GoNodeUtil.cpp
+
+libdeltago_go_a-GoNodeUtil.obj: GoNodeUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoNodeUtil.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoNodeUtil.Tpo -c -o libdeltago_go_a-GoNodeUtil.obj `if test -f 'GoNodeUtil.cpp'; then $(CYGPATH_W) 'GoNodeUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/GoNodeUtil.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoNodeUtil.Tpo $(DEPDIR)/libdeltago_go_a-GoNodeUtil.Po
+#	$(AM_V_CXX)source='GoNodeUtil.cpp' object='libdeltago_go_a-GoNodeUtil.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoNodeUtil.obj `if test -f 'GoNodeUtil.cpp'; then $(CYGPATH_W) 'GoNodeUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/GoNodeUtil.cpp'; fi`
+
+libdeltago_go_a-GoTimeControl.o: GoTimeControl.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoTimeControl.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoTimeControl.Tpo -c -o libdeltago_go_a-GoTimeControl.o `test -f 'GoTimeControl.cpp' || echo '$(srcdir)/'`GoTimeControl.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoTimeControl.Tpo $(DEPDIR)/libdeltago_go_a-GoTimeControl.Po
+#	$(AM_V_CXX)source='GoTimeControl.cpp' object='libdeltago_go_a-GoTimeControl.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoTimeControl.o `test -f 'GoTimeControl.cpp' || echo '$(srcdir)/'`GoTimeControl.cpp
+
+libdeltago_go_a-GoTimeControl.obj: GoTimeControl.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoTimeControl.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoTimeControl.Tpo -c -o libdeltago_go_a-GoTimeControl.obj `if test -f 'GoTimeControl.cpp'; then $(CYGPATH_W) 'GoTimeControl.cpp'; else $(CYGPATH_W) '$(srcdir)/GoTimeControl.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoTimeControl.Tpo $(DEPDIR)/libdeltago_go_a-GoTimeControl.Po
+#	$(AM_V_CXX)source='GoTimeControl.cpp' object='libdeltago_go_a-GoTimeControl.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoTimeControl.obj `if test -f 'GoTimeControl.cpp'; then $(CYGPATH_W) 'GoTimeControl.cpp'; else $(CYGPATH_W) '$(srcdir)/GoTimeControl.cpp'; fi`
+
+libdeltago_go_a-GoUtil.o: GoUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoUtil.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoUtil.Tpo -c -o libdeltago_go_a-GoUtil.o `test -f 'GoUtil.cpp' || echo '$(srcdir)/'`GoUtil.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoUtil.Tpo $(DEPDIR)/libdeltago_go_a-GoUtil.Po
+#	$(AM_V_CXX)source='GoUtil.cpp' object='libdeltago_go_a-GoUtil.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoUtil.o `test -f 'GoUtil.cpp' || echo '$(srcdir)/'`GoUtil.cpp
+
+libdeltago_go_a-GoUtil.obj: GoUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoUtil.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoUtil.Tpo -c -o libdeltago_go_a-GoUtil.obj `if test -f 'GoUtil.cpp'; then $(CYGPATH_W) 'GoUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/GoUtil.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoUtil.Tpo $(DEPDIR)/libdeltago_go_a-GoUtil.Po
+#	$(AM_V_CXX)source='GoUtil.cpp' object='libdeltago_go_a-GoUtil.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoUtil.obj `if test -f 'GoUtil.cpp'; then $(CYGPATH_W) 'GoUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/GoUtil.cpp'; fi`
+
+libdeltago_go_a-GoSetupUtil.o: GoSetupUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoSetupUtil.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoSetupUtil.Tpo -c -o libdeltago_go_a-GoSetupUtil.o `test -f 'GoSetupUtil.cpp' || echo '$(srcdir)/'`GoSetupUtil.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoSetupUtil.Tpo $(DEPDIR)/libdeltago_go_a-GoSetupUtil.Po
+#	$(AM_V_CXX)source='GoSetupUtil.cpp' object='libdeltago_go_a-GoSetupUtil.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoSetupUtil.o `test -f 'GoSetupUtil.cpp' || echo '$(srcdir)/'`GoSetupUtil.cpp
+
+libdeltago_go_a-GoSetupUtil.obj: GoSetupUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoSetupUtil.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoSetupUtil.Tpo -c -o libdeltago_go_a-GoSetupUtil.obj `if test -f 'GoSetupUtil.cpp'; then $(CYGPATH_W) 'GoSetupUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/GoSetupUtil.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoSetupUtil.Tpo $(DEPDIR)/libdeltago_go_a-GoSetupUtil.Po
+#	$(AM_V_CXX)source='GoSetupUtil.cpp' object='libdeltago_go_a-GoSetupUtil.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoSetupUtil.obj `if test -f 'GoSetupUtil.cpp'; then $(CYGPATH_W) 'GoSetupUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/GoSetupUtil.cpp'; fi`
+
+libdeltago_go_a-GoGtpExtraCommands.o: GoGtpExtraCommands.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoGtpExtraCommands.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoGtpExtraCommands.Tpo -c -o libdeltago_go_a-GoGtpExtraCommands.o `test -f 'GoGtpExtraCommands.cpp' || echo '$(srcdir)/'`GoGtpExtraCommands.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoGtpExtraCommands.Tpo $(DEPDIR)/libdeltago_go_a-GoGtpExtraCommands.Po
+#	$(AM_V_CXX)source='GoGtpExtraCommands.cpp' object='libdeltago_go_a-GoGtpExtraCommands.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoGtpExtraCommands.o `test -f 'GoGtpExtraCommands.cpp' || echo '$(srcdir)/'`GoGtpExtraCommands.cpp
+
+libdeltago_go_a-GoGtpExtraCommands.obj: GoGtpExtraCommands.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoGtpExtraCommands.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoGtpExtraCommands.Tpo -c -o libdeltago_go_a-GoGtpExtraCommands.obj `if test -f 'GoGtpExtraCommands.cpp'; then $(CYGPATH_W) 'GoGtpExtraCommands.cpp'; else $(CYGPATH_W) '$(srcdir)/GoGtpExtraCommands.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoGtpExtraCommands.Tpo $(DEPDIR)/libdeltago_go_a-GoGtpExtraCommands.Po
+#	$(AM_V_CXX)source='GoGtpExtraCommands.cpp' object='libdeltago_go_a-GoGtpExtraCommands.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoGtpExtraCommands.obj `if test -f 'GoGtpExtraCommands.cpp'; then $(CYGPATH_W) 'GoGtpExtraCommands.cpp'; else $(CYGPATH_W) '$(srcdir)/GoGtpExtraCommands.cpp'; fi`
+
+libdeltago_go_a-GoLadder.o: GoLadder.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoLadder.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoLadder.Tpo -c -o libdeltago_go_a-GoLadder.o `test -f 'GoLadder.cpp' || echo '$(srcdir)/'`GoLadder.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoLadder.Tpo $(DEPDIR)/libdeltago_go_a-GoLadder.Po
+#	$(AM_V_CXX)source='GoLadder.cpp' object='libdeltago_go_a-GoLadder.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoLadder.o `test -f 'GoLadder.cpp' || echo '$(srcdir)/'`GoLadder.cpp
+
+libdeltago_go_a-GoLadder.obj: GoLadder.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoLadder.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoLadder.Tpo -c -o libdeltago_go_a-GoLadder.obj `if test -f 'GoLadder.cpp'; then $(CYGPATH_W) 'GoLadder.cpp'; else $(CYGPATH_W) '$(srcdir)/GoLadder.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoLadder.Tpo $(DEPDIR)/libdeltago_go_a-GoLadder.Po
+#	$(AM_V_CXX)source='GoLadder.cpp' object='libdeltago_go_a-GoLadder.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoLadder.obj `if test -f 'GoLadder.cpp'; then $(CYGPATH_W) 'GoLadder.cpp'; else $(CYGPATH_W) '$(srcdir)/GoLadder.cpp'; fi`
+
+libdeltago_go_a-GoSafetyCommands.o: GoSafetyCommands.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoSafetyCommands.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoSafetyCommands.Tpo -c -o libdeltago_go_a-GoSafetyCommands.o `test -f 'GoSafetyCommands.cpp' || echo '$(srcdir)/'`GoSafetyCommands.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoSafetyCommands.Tpo $(DEPDIR)/libdeltago_go_a-GoSafetyCommands.Po
+#	$(AM_V_CXX)source='GoSafetyCommands.cpp' object='libdeltago_go_a-GoSafetyCommands.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoSafetyCommands.o `test -f 'GoSafetyCommands.cpp' || echo '$(srcdir)/'`GoSafetyCommands.cpp
+
+libdeltago_go_a-GoSafetyCommands.obj: GoSafetyCommands.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoSafetyCommands.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoSafetyCommands.Tpo -c -o libdeltago_go_a-GoSafetyCommands.obj `if test -f 'GoSafetyCommands.cpp'; then $(CYGPATH_W) 'GoSafetyCommands.cpp'; else $(CYGPATH_W) '$(srcdir)/GoSafetyCommands.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoSafetyCommands.Tpo $(DEPDIR)/libdeltago_go_a-GoSafetyCommands.Po
+#	$(AM_V_CXX)source='GoSafetyCommands.cpp' object='libdeltago_go_a-GoSafetyCommands.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoSafetyCommands.obj `if test -f 'GoSafetyCommands.cpp'; then $(CYGPATH_W) 'GoSafetyCommands.cpp'; else $(CYGPATH_W) '$(srcdir)/GoSafetyCommands.cpp'; fi`
+
+libdeltago_go_a-GoBensonSolver.o: GoBensonSolver.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBensonSolver.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBensonSolver.Tpo -c -o libdeltago_go_a-GoBensonSolver.o `test -f 'GoBensonSolver.cpp' || echo '$(srcdir)/'`GoBensonSolver.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBensonSolver.Tpo $(DEPDIR)/libdeltago_go_a-GoBensonSolver.Po
+#	$(AM_V_CXX)source='GoBensonSolver.cpp' object='libdeltago_go_a-GoBensonSolver.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBensonSolver.o `test -f 'GoBensonSolver.cpp' || echo '$(srcdir)/'`GoBensonSolver.cpp
+
+libdeltago_go_a-GoBensonSolver.obj: GoBensonSolver.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBensonSolver.obj -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBensonSolver.Tpo -c -o libdeltago_go_a-GoBensonSolver.obj `if test -f 'GoBensonSolver.cpp'; then $(CYGPATH_W) 'GoBensonSolver.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBensonSolver.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_go_a-GoBensonSolver.Tpo $(DEPDIR)/libdeltago_go_a-GoBensonSolver.Po
+#	$(AM_V_CXX)source='GoBensonSolver.cpp' object='libdeltago_go_a-GoBensonSolver.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_go_a-GoBensonSolver.obj `if test -f 'GoBensonSolver.cpp'; then $(CYGPATH_W) 'GoBensonSolver.cpp'; else $(CYGPATH_W) '$(srcdir)/GoBensonSolver.cpp'; fi`
 
 libdeltago_go_a-GoBoard.o: GoBoard.cpp
 	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_go_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_go_a-GoBoard.o -MD -MP -MF $(DEPDIR)/libdeltago_go_a-GoBoard.Tpo -c -o libdeltago_go_a-GoBoard.o `test -f 'GoBoard.cpp' || echo '$(srcdir)/'`GoBoard.cpp

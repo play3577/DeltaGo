@@ -29,6 +29,21 @@
 #include "SgDebug.h"
 #include "SgTimer.h"
 #include "SgSystem.h"
+#include "SgRandom.h"
+#include "GoUctPureRandomGenerator.h"
+
+#include "GoInit.h"
+#include "SgInit.h"
+#include "GoBoard.h"
+#include "GoUctBoard.h"
+
+#include <boost/utility.hpp>
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/cmdline.hpp>
+#include <boost/program_options/variables_map.hpp>
+#include <boost/program_options/parsers.hpp>
+
+
 
 using namespace std;
 // using namespace SgTime;
@@ -67,7 +82,10 @@ class FeatureExtractor {
     // net = Symbol::Load("./model/Inception-BN-symbol.json")
     //           .GetInternals()["global_pool_output"];
 
-    net = Symbol::Load("./model/zero_resnet-symbol.json")
+    // net = Symbol::Load("./model/zero_resnet-symbol.json")
+    //           .GetInternals()["softmax_output"];
+
+    net = Symbol::Load("./model/zero_super_simple_cnn-symbol.json")
               .GetInternals()["softmax_output"];
               
   }
@@ -75,8 +93,11 @@ class FeatureExtractor {
   void LoadParameters() {
     map<string, NDArray> paramters;
     // NDArray::Load("./model/Inception-BN-0126.params", 0, &paramters);
-    NDArray::Load("./model/zero_resnet-0003.params", 0, &paramters);
-    
+    // NDArray::Load("./model/zero_resnet-0003.params", 0, &paramters);
+    NDArray::Load("./model/zero_super_simple_cnn-0010.params", 0, &paramters);
+
+        
+
 
     for (const auto &k : paramters) {
       if (k.first.substr(0, 4) == "aux:") {
@@ -127,20 +148,28 @@ class FeatureExtractor {
 
     SgDebug() << "Trying to bind the model. \n";
 
-    executor = net.SimpleBind(global_ctx, args_map, map<string, NDArray>(),
-                              map<string, OpReqType>(), aux_map);
-
-    SgDebug() << "After binding. \n";
+    NDArray array;
 
     SgTimer timer;
 
     double start_time;
     start_time = timer.GetTime();
 
-    executor->Forward(false);
-    /*print out the features*/
-    auto array = executor->outputs[0].Copy(Context(kCPU, 0));
-    NDArray::WaitAll();
+    for (int i=0; i< 100; i++){
+      executor = net.SimpleBind(global_ctx, args_map, map<string, NDArray>(),
+                              map<string, OpReqType>(), aux_map);
+
+      // SgDebug() << "After binding. \n";
+
+      
+      executor->Forward(false);
+      /*print out the features*/
+      array = executor->outputs[0].Copy(Context(kCPU, 0));
+      NDArray::WaitAll();
+
+    }
+
+    
 
     double end_time;
     end_time = timer.GetTime();
@@ -201,6 +230,42 @@ NDArray generateSampleData(){
   return ret;
 }
 
+void goBoardTest(){
+
+  SgInit();
+  GoInit();
+
+  SgPoint testingPoint;
+
+  GoBoard basicBoard;
+  GoUctBoard goBoard(basicBoard);
+
+  SgRandom sgRandom;
+
+  GoUctPureRandomGenerator<GoUctBoard> randomGenerator(goBoard, sgRandom);
+  randomGenerator.Start();
+
+  for (int i =0; i< 1000; i++){
+      // testingPoint = curPolicy.GenerateMove();
+      testingPoint = randomGenerator.Generate();
+
+      if (testingPoint == SG_NULLMOVE){
+          break;
+      }
+
+      // SgDebug() << "testingPoint " << i << ": " << testingPoint << " . \n";
+
+      // SgPoint testingPoint = SgPointUtil::Pt(10, 10);
+      // SgBlackWhite color = SG_BLACK;
+
+      goBoard.Play(testingPoint);
+
+  }
+
+  SgDebug() << "Finished testing the GoUctBoard. \n";
+
+}
+
 int main() {
   /*
    * get the data from a binary file ./img.data
@@ -208,6 +273,9 @@ int main() {
    * it stores 2 pictures in NDArray format
    *
    */
+
+  goBoardTest();
+
   auto data = generateSampleData();
   FeatureExtractor fe;
   fe.Extract(data);

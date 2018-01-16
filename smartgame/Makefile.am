@@ -26,6 +26,23 @@ SgIncrementalStack.cpp \
 SgMiaiStrategy.cpp \
 SgStrategy.cpp \
 SgConnCompIterator.cpp \
+SgUctSearch.cpp \
+SgUctTree.cpp \
+SgMpiSynchronizer.cpp \
+SgFastLog.cpp \
+SgPlatform.cpp \
+SgStringUtil.cpp \
+SgBookBuilder.cpp \
+SgTimeSettings.cpp \
+SgTimeRecord.cpp \
+SgGtpCommands.cpp \
+SgGtpUtil.cpp \
+SgTimeControl.cpp \
+SgGameReader.cpp \
+SgGameWriter.cpp \
+SgNodeUtil.cpp \
+SgSearchStatistics.cpp \
+SgEvaluatedMoves.cpp \
 SgException.cpp
 
 noinst_HEADERS = \
@@ -63,6 +80,31 @@ SgIncrementalStack.h \
 SgMiaiStrategy.h \
 SgStrategy.h \
 SgConnCompIterator.h \
+SgUctSearch.h \
+SgAdditiveKnowledge.h \
+SgUctValue.h \
+SgStatistics.h \
+SgStatisticsVlt.h \
+SgUctTree.h \
+SgMpiSynchronizer.h \
+SgFastLog.h \
+SgHashTable.h \
+SgMath.h \
+SgPlatform.h \
+SgStringUtil.h \
+SgBookBuilder.h \
+SgThreadedWorker.h \
+SgTimeSettings.h \
+SgTimeRecord.h \
+SgGtpCommands.h \
+SgGtpUtil.h \
+SgTimeControl.h \
+SgEBWArray.h \
+SgGameReader.h \
+SgGameWriter.h \
+SgNodeUtil.h \
+SgSearchStatistics.h \
+SgEvaluatedMoves.h \
 SgException.h 
 
 libdeltago_smartgame_a_CPPFLAGS = \

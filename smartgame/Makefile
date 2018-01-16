@@ -88,10 +88,19 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = x86_64-apple-darwin15.6.0
+host_triplet = x86_64-apple-darwin15.6.0
 bin_PROGRAMS = SimpleMain$(EXEEXT)
 subdir = smartgame
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_boost_base.m4 \
+	$(top_srcdir)/m4/ax_boost_date_time.m4 \
+	$(top_srcdir)/m4/ax_boost_filesystem.m4 \
+	$(top_srcdir)/m4/ax_boost_program_options.m4 \
+	$(top_srcdir)/m4/ax_boost_system.m4 \
+	$(top_srcdir)/m4/ax_boost_thread.m4 \
+	$(top_srcdir)/m4/ax_boost_unit_test_framework.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(noinst_HEADERS) \
@@ -129,6 +138,23 @@ am_libdeltago_smartgame_a_OBJECTS =  \
 	libdeltago_smartgame_a-SgMiaiStrategy.$(OBJEXT) \
 	libdeltago_smartgame_a-SgStrategy.$(OBJEXT) \
 	libdeltago_smartgame_a-SgConnCompIterator.$(OBJEXT) \
+	libdeltago_smartgame_a-SgUctSearch.$(OBJEXT) \
+	libdeltago_smartgame_a-SgUctTree.$(OBJEXT) \
+	libdeltago_smartgame_a-SgMpiSynchronizer.$(OBJEXT) \
+	libdeltago_smartgame_a-SgFastLog.$(OBJEXT) \
+	libdeltago_smartgame_a-SgPlatform.$(OBJEXT) \
+	libdeltago_smartgame_a-SgStringUtil.$(OBJEXT) \
+	libdeltago_smartgame_a-SgBookBuilder.$(OBJEXT) \
+	libdeltago_smartgame_a-SgTimeSettings.$(OBJEXT) \
+	libdeltago_smartgame_a-SgTimeRecord.$(OBJEXT) \
+	libdeltago_smartgame_a-SgGtpCommands.$(OBJEXT) \
+	libdeltago_smartgame_a-SgGtpUtil.$(OBJEXT) \
+	libdeltago_smartgame_a-SgTimeControl.$(OBJEXT) \
+	libdeltago_smartgame_a-SgGameReader.$(OBJEXT) \
+	libdeltago_smartgame_a-SgGameWriter.$(OBJEXT) \
+	libdeltago_smartgame_a-SgNodeUtil.$(OBJEXT) \
+	libdeltago_smartgame_a-SgSearchStatistics.$(OBJEXT) \
+	libdeltago_smartgame_a-SgEvaluatedMoves.$(OBJEXT) \
 	libdeltago_smartgame_a-SgException.$(OBJEXT)
 libdeltago_smartgame_a_OBJECTS = $(am_libdeltago_smartgame_a_OBJECTS)
 am__installdirs = "$(DESTDIR)$(bindir)"
@@ -206,6 +232,14 @@ AUTOCONF = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing au
 AUTOHEADER = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing autoheader
 AUTOMAKE = ${SHELL} /Users/mingxuan/Desktop/workspace/go_game/deltago/missing automake-1.15
 AWK = awk
+BOOST_CPPFLAGS = -pthread -I/usr/local/include
+BOOST_DATE_TIME_LIB = -lboost_date_time-mt
+BOOST_FILESYSTEM_LIB = -lboost_filesystem
+BOOST_LDFLAGS = -L/usr/local/lib
+BOOST_PROGRAM_OPTIONS_LIB = -lboost_program_options-mt
+BOOST_SYSTEM_LIB = -lboost_system
+BOOST_THREAD_LIB = -lboost_thread-mt
+BOOST_UNIT_TEST_FRAMEWORK_LIB = -lboost_unit_test_framework-mt
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
@@ -258,14 +292,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
+build = x86_64-apple-darwin15.6.0
 build_alias = 
+build_cpu = x86_64
+build_os = darwin15.6.0
+build_vendor = apple
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = x86_64-apple-darwin15.6.0
 host_alias = 
+host_cpu = x86_64
+host_os = darwin15.6.0
+host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -313,6 +355,23 @@ SgIncrementalStack.cpp \
 SgMiaiStrategy.cpp \
 SgStrategy.cpp \
 SgConnCompIterator.cpp \
+SgUctSearch.cpp \
+SgUctTree.cpp \
+SgMpiSynchronizer.cpp \
+SgFastLog.cpp \
+SgPlatform.cpp \
+SgStringUtil.cpp \
+SgBookBuilder.cpp \
+SgTimeSettings.cpp \
+SgTimeRecord.cpp \
+SgGtpCommands.cpp \
+SgGtpUtil.cpp \
+SgTimeControl.cpp \
+SgGameReader.cpp \
+SgGameWriter.cpp \
+SgNodeUtil.cpp \
+SgSearchStatistics.cpp \
+SgEvaluatedMoves.cpp \
 SgException.cpp
 
 noinst_HEADERS = \
@@ -350,6 +409,31 @@ SgIncrementalStack.h \
 SgMiaiStrategy.h \
 SgStrategy.h \
 SgConnCompIterator.h \
+SgUctSearch.h \
+SgAdditiveKnowledge.h \
+SgUctValue.h \
+SgStatistics.h \
+SgStatisticsVlt.h \
+SgUctTree.h \
+SgMpiSynchronizer.h \
+SgFastLog.h \
+SgHashTable.h \
+SgMath.h \
+SgPlatform.h \
+SgStringUtil.h \
+SgBookBuilder.h \
+SgThreadedWorker.h \
+SgTimeSettings.h \
+SgTimeRecord.h \
+SgGtpCommands.h \
+SgGtpUtil.h \
+SgTimeControl.h \
+SgEBWArray.h \
+SgGameReader.h \
+SgGameWriter.h \
+SgNodeUtil.h \
+SgSearchStatistics.h \
+SgEvaluatedMoves.h \
 SgException.h 
 
 libdeltago_smartgame_a_CPPFLAGS = \
@@ -453,24 +537,41 @@ distclean-compile:
 
 include ./$(DEPDIR)/SimpleMain.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgBoardConst.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgBookBuilder.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgConnCompIterator.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgDebug.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgEvaluatedMoves.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgException.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgFastLog.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgGameReader.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgGameWriter.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgGtpCommands.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgGtpUtil.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgIncrementalStack.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgInit.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgMemCheck.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgMiaiStrategy.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgMpiSynchronizer.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgNbIterator.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgNode.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgNodeUtil.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgPlatform.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgPoint.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgPointSet.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgPointSetUtil.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgProp.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgRandom.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgRect.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgSearchStatistics.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgStrategy.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgStringUtil.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgSystem.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgTime.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgTimeControl.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgTimeRecord.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgTimeSettings.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgUctSearch.Po
+include ./$(DEPDIR)/libdeltago_smartgame_a-SgUctTree.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgUtil.Po
 include ./$(DEPDIR)/libdeltago_smartgame_a-SgWrite.Po
 
@@ -767,6 +868,244 @@ libdeltago_smartgame_a-SgConnCompIterator.obj: SgConnCompIterator.cpp
 #	$(AM_V_CXX)source='SgConnCompIterator.cpp' object='libdeltago_smartgame_a-SgConnCompIterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgConnCompIterator.obj `if test -f 'SgConnCompIterator.cpp'; then $(CYGPATH_W) 'SgConnCompIterator.cpp'; else $(CYGPATH_W) '$(srcdir)/SgConnCompIterator.cpp'; fi`
+
+libdeltago_smartgame_a-SgUctSearch.o: SgUctSearch.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgUctSearch.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgUctSearch.Tpo -c -o libdeltago_smartgame_a-SgUctSearch.o `test -f 'SgUctSearch.cpp' || echo '$(srcdir)/'`SgUctSearch.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgUctSearch.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgUctSearch.Po
+#	$(AM_V_CXX)source='SgUctSearch.cpp' object='libdeltago_smartgame_a-SgUctSearch.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgUctSearch.o `test -f 'SgUctSearch.cpp' || echo '$(srcdir)/'`SgUctSearch.cpp
+
+libdeltago_smartgame_a-SgUctSearch.obj: SgUctSearch.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgUctSearch.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgUctSearch.Tpo -c -o libdeltago_smartgame_a-SgUctSearch.obj `if test -f 'SgUctSearch.cpp'; then $(CYGPATH_W) 'SgUctSearch.cpp'; else $(CYGPATH_W) '$(srcdir)/SgUctSearch.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgUctSearch.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgUctSearch.Po
+#	$(AM_V_CXX)source='SgUctSearch.cpp' object='libdeltago_smartgame_a-SgUctSearch.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgUctSearch.obj `if test -f 'SgUctSearch.cpp'; then $(CYGPATH_W) 'SgUctSearch.cpp'; else $(CYGPATH_W) '$(srcdir)/SgUctSearch.cpp'; fi`
+
+libdeltago_smartgame_a-SgUctTree.o: SgUctTree.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgUctTree.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgUctTree.Tpo -c -o libdeltago_smartgame_a-SgUctTree.o `test -f 'SgUctTree.cpp' || echo '$(srcdir)/'`SgUctTree.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgUctTree.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgUctTree.Po
+#	$(AM_V_CXX)source='SgUctTree.cpp' object='libdeltago_smartgame_a-SgUctTree.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgUctTree.o `test -f 'SgUctTree.cpp' || echo '$(srcdir)/'`SgUctTree.cpp
+
+libdeltago_smartgame_a-SgUctTree.obj: SgUctTree.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgUctTree.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgUctTree.Tpo -c -o libdeltago_smartgame_a-SgUctTree.obj `if test -f 'SgUctTree.cpp'; then $(CYGPATH_W) 'SgUctTree.cpp'; else $(CYGPATH_W) '$(srcdir)/SgUctTree.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgUctTree.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgUctTree.Po
+#	$(AM_V_CXX)source='SgUctTree.cpp' object='libdeltago_smartgame_a-SgUctTree.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgUctTree.obj `if test -f 'SgUctTree.cpp'; then $(CYGPATH_W) 'SgUctTree.cpp'; else $(CYGPATH_W) '$(srcdir)/SgUctTree.cpp'; fi`
+
+libdeltago_smartgame_a-SgMpiSynchronizer.o: SgMpiSynchronizer.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgMpiSynchronizer.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgMpiSynchronizer.Tpo -c -o libdeltago_smartgame_a-SgMpiSynchronizer.o `test -f 'SgMpiSynchronizer.cpp' || echo '$(srcdir)/'`SgMpiSynchronizer.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgMpiSynchronizer.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgMpiSynchronizer.Po
+#	$(AM_V_CXX)source='SgMpiSynchronizer.cpp' object='libdeltago_smartgame_a-SgMpiSynchronizer.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgMpiSynchronizer.o `test -f 'SgMpiSynchronizer.cpp' || echo '$(srcdir)/'`SgMpiSynchronizer.cpp
+
+libdeltago_smartgame_a-SgMpiSynchronizer.obj: SgMpiSynchronizer.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgMpiSynchronizer.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgMpiSynchronizer.Tpo -c -o libdeltago_smartgame_a-SgMpiSynchronizer.obj `if test -f 'SgMpiSynchronizer.cpp'; then $(CYGPATH_W) 'SgMpiSynchronizer.cpp'; else $(CYGPATH_W) '$(srcdir)/SgMpiSynchronizer.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgMpiSynchronizer.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgMpiSynchronizer.Po
+#	$(AM_V_CXX)source='SgMpiSynchronizer.cpp' object='libdeltago_smartgame_a-SgMpiSynchronizer.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgMpiSynchronizer.obj `if test -f 'SgMpiSynchronizer.cpp'; then $(CYGPATH_W) 'SgMpiSynchronizer.cpp'; else $(CYGPATH_W) '$(srcdir)/SgMpiSynchronizer.cpp'; fi`
+
+libdeltago_smartgame_a-SgFastLog.o: SgFastLog.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgFastLog.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgFastLog.Tpo -c -o libdeltago_smartgame_a-SgFastLog.o `test -f 'SgFastLog.cpp' || echo '$(srcdir)/'`SgFastLog.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgFastLog.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgFastLog.Po
+#	$(AM_V_CXX)source='SgFastLog.cpp' object='libdeltago_smartgame_a-SgFastLog.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgFastLog.o `test -f 'SgFastLog.cpp' || echo '$(srcdir)/'`SgFastLog.cpp
+
+libdeltago_smartgame_a-SgFastLog.obj: SgFastLog.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgFastLog.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgFastLog.Tpo -c -o libdeltago_smartgame_a-SgFastLog.obj `if test -f 'SgFastLog.cpp'; then $(CYGPATH_W) 'SgFastLog.cpp'; else $(CYGPATH_W) '$(srcdir)/SgFastLog.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgFastLog.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgFastLog.Po
+#	$(AM_V_CXX)source='SgFastLog.cpp' object='libdeltago_smartgame_a-SgFastLog.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgFastLog.obj `if test -f 'SgFastLog.cpp'; then $(CYGPATH_W) 'SgFastLog.cpp'; else $(CYGPATH_W) '$(srcdir)/SgFastLog.cpp'; fi`
+
+libdeltago_smartgame_a-SgPlatform.o: SgPlatform.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgPlatform.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgPlatform.Tpo -c -o libdeltago_smartgame_a-SgPlatform.o `test -f 'SgPlatform.cpp' || echo '$(srcdir)/'`SgPlatform.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgPlatform.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgPlatform.Po
+#	$(AM_V_CXX)source='SgPlatform.cpp' object='libdeltago_smartgame_a-SgPlatform.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgPlatform.o `test -f 'SgPlatform.cpp' || echo '$(srcdir)/'`SgPlatform.cpp
+
+libdeltago_smartgame_a-SgPlatform.obj: SgPlatform.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgPlatform.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgPlatform.Tpo -c -o libdeltago_smartgame_a-SgPlatform.obj `if test -f 'SgPlatform.cpp'; then $(CYGPATH_W) 'SgPlatform.cpp'; else $(CYGPATH_W) '$(srcdir)/SgPlatform.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgPlatform.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgPlatform.Po
+#	$(AM_V_CXX)source='SgPlatform.cpp' object='libdeltago_smartgame_a-SgPlatform.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgPlatform.obj `if test -f 'SgPlatform.cpp'; then $(CYGPATH_W) 'SgPlatform.cpp'; else $(CYGPATH_W) '$(srcdir)/SgPlatform.cpp'; fi`
+
+libdeltago_smartgame_a-SgStringUtil.o: SgStringUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgStringUtil.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgStringUtil.Tpo -c -o libdeltago_smartgame_a-SgStringUtil.o `test -f 'SgStringUtil.cpp' || echo '$(srcdir)/'`SgStringUtil.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgStringUtil.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgStringUtil.Po
+#	$(AM_V_CXX)source='SgStringUtil.cpp' object='libdeltago_smartgame_a-SgStringUtil.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgStringUtil.o `test -f 'SgStringUtil.cpp' || echo '$(srcdir)/'`SgStringUtil.cpp
+
+libdeltago_smartgame_a-SgStringUtil.obj: SgStringUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgStringUtil.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgStringUtil.Tpo -c -o libdeltago_smartgame_a-SgStringUtil.obj `if test -f 'SgStringUtil.cpp'; then $(CYGPATH_W) 'SgStringUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/SgStringUtil.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgStringUtil.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgStringUtil.Po
+#	$(AM_V_CXX)source='SgStringUtil.cpp' object='libdeltago_smartgame_a-SgStringUtil.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgStringUtil.obj `if test -f 'SgStringUtil.cpp'; then $(CYGPATH_W) 'SgStringUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/SgStringUtil.cpp'; fi`
+
+libdeltago_smartgame_a-SgBookBuilder.o: SgBookBuilder.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgBookBuilder.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgBookBuilder.Tpo -c -o libdeltago_smartgame_a-SgBookBuilder.o `test -f 'SgBookBuilder.cpp' || echo '$(srcdir)/'`SgBookBuilder.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgBookBuilder.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgBookBuilder.Po
+#	$(AM_V_CXX)source='SgBookBuilder.cpp' object='libdeltago_smartgame_a-SgBookBuilder.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgBookBuilder.o `test -f 'SgBookBuilder.cpp' || echo '$(srcdir)/'`SgBookBuilder.cpp
+
+libdeltago_smartgame_a-SgBookBuilder.obj: SgBookBuilder.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgBookBuilder.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgBookBuilder.Tpo -c -o libdeltago_smartgame_a-SgBookBuilder.obj `if test -f 'SgBookBuilder.cpp'; then $(CYGPATH_W) 'SgBookBuilder.cpp'; else $(CYGPATH_W) '$(srcdir)/SgBookBuilder.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgBookBuilder.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgBookBuilder.Po
+#	$(AM_V_CXX)source='SgBookBuilder.cpp' object='libdeltago_smartgame_a-SgBookBuilder.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgBookBuilder.obj `if test -f 'SgBookBuilder.cpp'; then $(CYGPATH_W) 'SgBookBuilder.cpp'; else $(CYGPATH_W) '$(srcdir)/SgBookBuilder.cpp'; fi`
+
+libdeltago_smartgame_a-SgTimeSettings.o: SgTimeSettings.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgTimeSettings.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgTimeSettings.Tpo -c -o libdeltago_smartgame_a-SgTimeSettings.o `test -f 'SgTimeSettings.cpp' || echo '$(srcdir)/'`SgTimeSettings.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgTimeSettings.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgTimeSettings.Po
+#	$(AM_V_CXX)source='SgTimeSettings.cpp' object='libdeltago_smartgame_a-SgTimeSettings.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgTimeSettings.o `test -f 'SgTimeSettings.cpp' || echo '$(srcdir)/'`SgTimeSettings.cpp
+
+libdeltago_smartgame_a-SgTimeSettings.obj: SgTimeSettings.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgTimeSettings.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgTimeSettings.Tpo -c -o libdeltago_smartgame_a-SgTimeSettings.obj `if test -f 'SgTimeSettings.cpp'; then $(CYGPATH_W) 'SgTimeSettings.cpp'; else $(CYGPATH_W) '$(srcdir)/SgTimeSettings.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgTimeSettings.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgTimeSettings.Po
+#	$(AM_V_CXX)source='SgTimeSettings.cpp' object='libdeltago_smartgame_a-SgTimeSettings.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgTimeSettings.obj `if test -f 'SgTimeSettings.cpp'; then $(CYGPATH_W) 'SgTimeSettings.cpp'; else $(CYGPATH_W) '$(srcdir)/SgTimeSettings.cpp'; fi`
+
+libdeltago_smartgame_a-SgTimeRecord.o: SgTimeRecord.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgTimeRecord.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgTimeRecord.Tpo -c -o libdeltago_smartgame_a-SgTimeRecord.o `test -f 'SgTimeRecord.cpp' || echo '$(srcdir)/'`SgTimeRecord.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgTimeRecord.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgTimeRecord.Po
+#	$(AM_V_CXX)source='SgTimeRecord.cpp' object='libdeltago_smartgame_a-SgTimeRecord.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgTimeRecord.o `test -f 'SgTimeRecord.cpp' || echo '$(srcdir)/'`SgTimeRecord.cpp
+
+libdeltago_smartgame_a-SgTimeRecord.obj: SgTimeRecord.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgTimeRecord.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgTimeRecord.Tpo -c -o libdeltago_smartgame_a-SgTimeRecord.obj `if test -f 'SgTimeRecord.cpp'; then $(CYGPATH_W) 'SgTimeRecord.cpp'; else $(CYGPATH_W) '$(srcdir)/SgTimeRecord.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgTimeRecord.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgTimeRecord.Po
+#	$(AM_V_CXX)source='SgTimeRecord.cpp' object='libdeltago_smartgame_a-SgTimeRecord.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgTimeRecord.obj `if test -f 'SgTimeRecord.cpp'; then $(CYGPATH_W) 'SgTimeRecord.cpp'; else $(CYGPATH_W) '$(srcdir)/SgTimeRecord.cpp'; fi`
+
+libdeltago_smartgame_a-SgGtpCommands.o: SgGtpCommands.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgGtpCommands.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgGtpCommands.Tpo -c -o libdeltago_smartgame_a-SgGtpCommands.o `test -f 'SgGtpCommands.cpp' || echo '$(srcdir)/'`SgGtpCommands.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgGtpCommands.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgGtpCommands.Po
+#	$(AM_V_CXX)source='SgGtpCommands.cpp' object='libdeltago_smartgame_a-SgGtpCommands.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgGtpCommands.o `test -f 'SgGtpCommands.cpp' || echo '$(srcdir)/'`SgGtpCommands.cpp
+
+libdeltago_smartgame_a-SgGtpCommands.obj: SgGtpCommands.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgGtpCommands.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgGtpCommands.Tpo -c -o libdeltago_smartgame_a-SgGtpCommands.obj `if test -f 'SgGtpCommands.cpp'; then $(CYGPATH_W) 'SgGtpCommands.cpp'; else $(CYGPATH_W) '$(srcdir)/SgGtpCommands.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgGtpCommands.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgGtpCommands.Po
+#	$(AM_V_CXX)source='SgGtpCommands.cpp' object='libdeltago_smartgame_a-SgGtpCommands.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgGtpCommands.obj `if test -f 'SgGtpCommands.cpp'; then $(CYGPATH_W) 'SgGtpCommands.cpp'; else $(CYGPATH_W) '$(srcdir)/SgGtpCommands.cpp'; fi`
+
+libdeltago_smartgame_a-SgGtpUtil.o: SgGtpUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgGtpUtil.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgGtpUtil.Tpo -c -o libdeltago_smartgame_a-SgGtpUtil.o `test -f 'SgGtpUtil.cpp' || echo '$(srcdir)/'`SgGtpUtil.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgGtpUtil.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgGtpUtil.Po
+#	$(AM_V_CXX)source='SgGtpUtil.cpp' object='libdeltago_smartgame_a-SgGtpUtil.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgGtpUtil.o `test -f 'SgGtpUtil.cpp' || echo '$(srcdir)/'`SgGtpUtil.cpp
+
+libdeltago_smartgame_a-SgGtpUtil.obj: SgGtpUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgGtpUtil.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgGtpUtil.Tpo -c -o libdeltago_smartgame_a-SgGtpUtil.obj `if test -f 'SgGtpUtil.cpp'; then $(CYGPATH_W) 'SgGtpUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/SgGtpUtil.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgGtpUtil.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgGtpUtil.Po
+#	$(AM_V_CXX)source='SgGtpUtil.cpp' object='libdeltago_smartgame_a-SgGtpUtil.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgGtpUtil.obj `if test -f 'SgGtpUtil.cpp'; then $(CYGPATH_W) 'SgGtpUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/SgGtpUtil.cpp'; fi`
+
+libdeltago_smartgame_a-SgTimeControl.o: SgTimeControl.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgTimeControl.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgTimeControl.Tpo -c -o libdeltago_smartgame_a-SgTimeControl.o `test -f 'SgTimeControl.cpp' || echo '$(srcdir)/'`SgTimeControl.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgTimeControl.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgTimeControl.Po
+#	$(AM_V_CXX)source='SgTimeControl.cpp' object='libdeltago_smartgame_a-SgTimeControl.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgTimeControl.o `test -f 'SgTimeControl.cpp' || echo '$(srcdir)/'`SgTimeControl.cpp
+
+libdeltago_smartgame_a-SgTimeControl.obj: SgTimeControl.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgTimeControl.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgTimeControl.Tpo -c -o libdeltago_smartgame_a-SgTimeControl.obj `if test -f 'SgTimeControl.cpp'; then $(CYGPATH_W) 'SgTimeControl.cpp'; else $(CYGPATH_W) '$(srcdir)/SgTimeControl.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgTimeControl.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgTimeControl.Po
+#	$(AM_V_CXX)source='SgTimeControl.cpp' object='libdeltago_smartgame_a-SgTimeControl.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgTimeControl.obj `if test -f 'SgTimeControl.cpp'; then $(CYGPATH_W) 'SgTimeControl.cpp'; else $(CYGPATH_W) '$(srcdir)/SgTimeControl.cpp'; fi`
+
+libdeltago_smartgame_a-SgGameReader.o: SgGameReader.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgGameReader.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgGameReader.Tpo -c -o libdeltago_smartgame_a-SgGameReader.o `test -f 'SgGameReader.cpp' || echo '$(srcdir)/'`SgGameReader.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgGameReader.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgGameReader.Po
+#	$(AM_V_CXX)source='SgGameReader.cpp' object='libdeltago_smartgame_a-SgGameReader.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgGameReader.o `test -f 'SgGameReader.cpp' || echo '$(srcdir)/'`SgGameReader.cpp
+
+libdeltago_smartgame_a-SgGameReader.obj: SgGameReader.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgGameReader.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgGameReader.Tpo -c -o libdeltago_smartgame_a-SgGameReader.obj `if test -f 'SgGameReader.cpp'; then $(CYGPATH_W) 'SgGameReader.cpp'; else $(CYGPATH_W) '$(srcdir)/SgGameReader.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgGameReader.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgGameReader.Po
+#	$(AM_V_CXX)source='SgGameReader.cpp' object='libdeltago_smartgame_a-SgGameReader.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgGameReader.obj `if test -f 'SgGameReader.cpp'; then $(CYGPATH_W) 'SgGameReader.cpp'; else $(CYGPATH_W) '$(srcdir)/SgGameReader.cpp'; fi`
+
+libdeltago_smartgame_a-SgGameWriter.o: SgGameWriter.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgGameWriter.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgGameWriter.Tpo -c -o libdeltago_smartgame_a-SgGameWriter.o `test -f 'SgGameWriter.cpp' || echo '$(srcdir)/'`SgGameWriter.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgGameWriter.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgGameWriter.Po
+#	$(AM_V_CXX)source='SgGameWriter.cpp' object='libdeltago_smartgame_a-SgGameWriter.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgGameWriter.o `test -f 'SgGameWriter.cpp' || echo '$(srcdir)/'`SgGameWriter.cpp
+
+libdeltago_smartgame_a-SgGameWriter.obj: SgGameWriter.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgGameWriter.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgGameWriter.Tpo -c -o libdeltago_smartgame_a-SgGameWriter.obj `if test -f 'SgGameWriter.cpp'; then $(CYGPATH_W) 'SgGameWriter.cpp'; else $(CYGPATH_W) '$(srcdir)/SgGameWriter.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgGameWriter.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgGameWriter.Po
+#	$(AM_V_CXX)source='SgGameWriter.cpp' object='libdeltago_smartgame_a-SgGameWriter.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgGameWriter.obj `if test -f 'SgGameWriter.cpp'; then $(CYGPATH_W) 'SgGameWriter.cpp'; else $(CYGPATH_W) '$(srcdir)/SgGameWriter.cpp'; fi`
+
+libdeltago_smartgame_a-SgNodeUtil.o: SgNodeUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgNodeUtil.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgNodeUtil.Tpo -c -o libdeltago_smartgame_a-SgNodeUtil.o `test -f 'SgNodeUtil.cpp' || echo '$(srcdir)/'`SgNodeUtil.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgNodeUtil.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgNodeUtil.Po
+#	$(AM_V_CXX)source='SgNodeUtil.cpp' object='libdeltago_smartgame_a-SgNodeUtil.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgNodeUtil.o `test -f 'SgNodeUtil.cpp' || echo '$(srcdir)/'`SgNodeUtil.cpp
+
+libdeltago_smartgame_a-SgNodeUtil.obj: SgNodeUtil.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgNodeUtil.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgNodeUtil.Tpo -c -o libdeltago_smartgame_a-SgNodeUtil.obj `if test -f 'SgNodeUtil.cpp'; then $(CYGPATH_W) 'SgNodeUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/SgNodeUtil.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgNodeUtil.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgNodeUtil.Po
+#	$(AM_V_CXX)source='SgNodeUtil.cpp' object='libdeltago_smartgame_a-SgNodeUtil.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgNodeUtil.obj `if test -f 'SgNodeUtil.cpp'; then $(CYGPATH_W) 'SgNodeUtil.cpp'; else $(CYGPATH_W) '$(srcdir)/SgNodeUtil.cpp'; fi`
+
+libdeltago_smartgame_a-SgSearchStatistics.o: SgSearchStatistics.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgSearchStatistics.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgSearchStatistics.Tpo -c -o libdeltago_smartgame_a-SgSearchStatistics.o `test -f 'SgSearchStatistics.cpp' || echo '$(srcdir)/'`SgSearchStatistics.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgSearchStatistics.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgSearchStatistics.Po
+#	$(AM_V_CXX)source='SgSearchStatistics.cpp' object='libdeltago_smartgame_a-SgSearchStatistics.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgSearchStatistics.o `test -f 'SgSearchStatistics.cpp' || echo '$(srcdir)/'`SgSearchStatistics.cpp
+
+libdeltago_smartgame_a-SgSearchStatistics.obj: SgSearchStatistics.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgSearchStatistics.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgSearchStatistics.Tpo -c -o libdeltago_smartgame_a-SgSearchStatistics.obj `if test -f 'SgSearchStatistics.cpp'; then $(CYGPATH_W) 'SgSearchStatistics.cpp'; else $(CYGPATH_W) '$(srcdir)/SgSearchStatistics.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgSearchStatistics.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgSearchStatistics.Po
+#	$(AM_V_CXX)source='SgSearchStatistics.cpp' object='libdeltago_smartgame_a-SgSearchStatistics.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgSearchStatistics.obj `if test -f 'SgSearchStatistics.cpp'; then $(CYGPATH_W) 'SgSearchStatistics.cpp'; else $(CYGPATH_W) '$(srcdir)/SgSearchStatistics.cpp'; fi`
+
+libdeltago_smartgame_a-SgEvaluatedMoves.o: SgEvaluatedMoves.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgEvaluatedMoves.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgEvaluatedMoves.Tpo -c -o libdeltago_smartgame_a-SgEvaluatedMoves.o `test -f 'SgEvaluatedMoves.cpp' || echo '$(srcdir)/'`SgEvaluatedMoves.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgEvaluatedMoves.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgEvaluatedMoves.Po
+#	$(AM_V_CXX)source='SgEvaluatedMoves.cpp' object='libdeltago_smartgame_a-SgEvaluatedMoves.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgEvaluatedMoves.o `test -f 'SgEvaluatedMoves.cpp' || echo '$(srcdir)/'`SgEvaluatedMoves.cpp
+
+libdeltago_smartgame_a-SgEvaluatedMoves.obj: SgEvaluatedMoves.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgEvaluatedMoves.obj -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgEvaluatedMoves.Tpo -c -o libdeltago_smartgame_a-SgEvaluatedMoves.obj `if test -f 'SgEvaluatedMoves.cpp'; then $(CYGPATH_W) 'SgEvaluatedMoves.cpp'; else $(CYGPATH_W) '$(srcdir)/SgEvaluatedMoves.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libdeltago_smartgame_a-SgEvaluatedMoves.Tpo $(DEPDIR)/libdeltago_smartgame_a-SgEvaluatedMoves.Po
+#	$(AM_V_CXX)source='SgEvaluatedMoves.cpp' object='libdeltago_smartgame_a-SgEvaluatedMoves.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdeltago_smartgame_a-SgEvaluatedMoves.obj `if test -f 'SgEvaluatedMoves.cpp'; then $(CYGPATH_W) 'SgEvaluatedMoves.cpp'; else $(CYGPATH_W) '$(srcdir)/SgEvaluatedMoves.cpp'; fi`
 
 libdeltago_smartgame_a-SgException.o: SgException.cpp
 	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdeltago_smartgame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdeltago_smartgame_a-SgException.o -MD -MP -MF $(DEPDIR)/libdeltago_smartgame_a-SgException.Tpo -c -o libdeltago_smartgame_a-SgException.o `test -f 'SgException.cpp' || echo '$(srcdir)/'`SgException.cpp
